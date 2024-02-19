@@ -55,7 +55,7 @@ def scrape():
         action.move_to_element(item).key_down(Keys.CONTROL).click().key_up(Keys.CONTROL).perform()
         browser.switch_to.window(browser.window_handles[1])
         time.sleep(2)
-        product_name = browser.find_element(By.XPATH,'//div[@class="product-converter__title"]/div').text
+        product_name = browser.find_element(By.XPATH,'//div[@class="product-converter__title"]/div').text.strip()
         try:
             browser.execute_script("let element = document.getElementsByClassName('needsclick  kl-private-reset-css-Xuajs1');element[0].remove()")
             browser.execute_script("let element = document.getElementsById('smile-ui-container');element[0].remove()")
@@ -75,13 +75,13 @@ def scrape():
             all_reviews = browser.find_elements(By.XPATH,".//div[@class='titania-1ank7hr-reviewWrapper']/div")
             if len(all_reviews) > 0:
                 for review in all_reviews:
-                    review_topic = review.find_element(By.CLASS_NAME,'titania-1oqpb4x').text
-                    review_name = review.find_element(By.XPATH,'.//p[@class="titania-oshm15"]').text
-                    date = review.find_element(By.CLASS_NAME,'titania-1if91g1').text
+                    review_topic = review.find_element(By.CLASS_NAME,'titania-1oqpb4x').text.strip()
+                    review_name = review.find_element(By.XPATH,'.//p[@class="titania-oshm15"]').text.strip()
+                    date = review.find_element(By.CLASS_NAME,'titania-1if91g1').text.strip()
                     more = review.find_elements(By.CLASS_NAME,'titania-jcue9l-readMoreLessText')
                     if len(more) > 0:
                         browser.execute_script("arguments[0].click()", more[-1])
-                    message = review.find_element(By.CLASS_NAME,'titania-2lt2bb').text
+                    message = review.find_element(By.CLASS_NAME,'titania-2lt2bb').text.strip()
                     data = {
                         "brand": brand_name,
                         'product':product_name,
