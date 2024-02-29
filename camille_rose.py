@@ -78,6 +78,7 @@ def scrape():
                     review_topic = review.find_element(By.CLASS_NAME,'titania-1oqpb4x').text.strip()
                     review_name = review.find_element(By.XPATH,'.//p[@class="titania-oshm15"]').text.strip()
                     date = review.find_element(By.CLASS_NAME,'titania-1if91g1').text.strip()
+                    rating = review.find_element(By.CLASS_NAME,'titania-ng7ck2-starGroupStyle').get_attribute('aria-label').strip()
                     more = review.find_elements(By.CLASS_NAME,'titania-jcue9l-readMoreLessText')
                     if len(more) > 0:
                         browser.execute_script("arguments[0].click()", more[-1])
@@ -88,6 +89,7 @@ def scrape():
                         "review topic":review_topic,
                         "review author":review_name,
                         'date':date,
+                        'rating':rating,
                         "message": message
                     }
                     views.append(data)
@@ -107,6 +109,7 @@ def scrape():
                 "review topic":'',
                 "review author":'',
                 'date':'',
+                'rating':'',
                 "message": ''
             }
             views.append(data)
