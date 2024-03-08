@@ -5,38 +5,50 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 import time
 import random
 
 # Set up Chrome options
 options = Options()
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_argument("--start-maximized")
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_argument('--disable-gpu')  # Disable GPU hardware acceleration
+options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
+options.add_argument('--no-sandbox')  # Bypass OS security model, WARNING: NOT RECOMMENDED FOR PRODUCTION
+options.add_argument("--start-maximized")  # Start maximized
+options.add_argument('--disable-blink-features=AutomationControlled')  # Try to hide automation
+options.add_argument('--lang=en-US')  # Set language to US English
+options.add_experimental_option("excludeSwitches", ["enable-automation"])  # Avoid Chrome's automation extension
 options.add_experimental_option('useAutomationExtension', False)
 
-# # Use a user profile for more human-like browsing
-# options.add_argument("user-data-dir=selenium") 
+# User-agent update to match ChromeDriver version and seem more natural
+user_agent = "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
+options.add_argument(user_agent)
 
-# Rotate user agents
-user_agents = [
-    "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-    # Add more user agents here
-]
-options.add_argument(random.choice(user_agents))
-
+# Launch Chrome
 driver = webdriver.Chrome(options=options)
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-action = ActionChains(driver)
-url = 'https://amazon.com'
-driver.get(url)
 
-# Use implicit waits instead of fixed sleep
-driver.implicitly_wait(1)
+# Navigate to Amazon with delays to mimic human behavior
+url = 'https://www.amazon.com'
+driver.get(url)
+time.sleep(random.uniform(2, 4))  # Wait for a few seconds
+
+# Additional Strategies
+
+# Simulate human-like browsing patterns, e.g., scrolling
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+time.sleep(random.uniform(1, 3))  # Random wait time
+driver.execute_script("window.scrollTo(0, 0);")
+time.sleep(random.uniform(1, 3))
+
+# After your operations, consider persisting cookies and using them in future sessions
+# This step would involve saving cookies to a file and then loading them before navigating to Amazon
+
+# IMPORTANT: Use explicit waits rather than fixed sleeps to wait for elements
+# Example of explicit wait usage:
+
+# After your tasks
+# driver.quit()
 
 
 
