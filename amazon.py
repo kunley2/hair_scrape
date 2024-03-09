@@ -119,7 +119,7 @@ def main_scraper(find_product):
 
     all = driver.find_element(By.XPATH, '/html/body')
     print(all.text)
-    main_search = driver.find_element(By.XPATH, '//input[contains(@placeholder,"Search ") and @type="text"]')
+    main_search = driver.find_element(By.XPATH, '//input[contains(@id,"search") and @type="text"]')
     main_search.send_keys(find_product)
     main_search.send_keys(Keys.ENTER)
 
