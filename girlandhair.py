@@ -38,7 +38,6 @@ def scrape():
         items = browser.find_elements(By.XPATH, '//div[@class="grid-view-item--desc-wrapper"]//p[@class="product-grid--title"]/a')
         last_item = items[-1]
         browser.execute_script("arguments[0].scrollIntoView();", last_item)
-        browser.implicitly_wait(10)
         wait = WebDriverWait(browser, 10)
         wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@class="grid-view-item--desc-wrapper"]//p[@class="product-grid--title"]/a')))
         # time.sleep(10)
