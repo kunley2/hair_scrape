@@ -20,29 +20,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-"""
-importing necessary libraries
-"""
-
-from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import JavascriptException
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.keys import Keys
-import pandas as pd
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import undetected_chromedriver as uc
-import time
-import traceback
-from selenium.webdriver.common.action_chains import ActionChains
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
-
 def scrape():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
